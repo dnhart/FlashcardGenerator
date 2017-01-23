@@ -1,0 +1,24 @@
+{
+  "name": "flashcardgenerator",
+  "version": "1.0.0",
+  "description": "",
+  "main": "cards.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dnhart/FlashcardGenerator.git"
+  },
+  "author": "D'Ann Hart",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dnhart/FlashcardGenerator/issues"
+  },
+  "homepage": "https://github.com/dnhart/FlashcardGenerator#readme",
+  "dependencies": {
+    "inquirer": "^3.0.0",
+    "ls": "^0.2.1",
+    "pinkie-promise": "^2.0.1"
+  }
+}
