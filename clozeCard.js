@@ -2,78 +2,77 @@ var inquirer = require("inquirer");
 var fs = require("fs");
 
 
-function clozeCard (fullText, clozeDeleted, partialText){
+function clozeCard (fullText, clozeDeleted){
 	this.fullText = fullText;
 	this.clozeDeleted = clozeDeleted;
-	this.partialText = partialText;
-
+	//this.makePartial = makePartial(this.fullText, this.clozeDeleted);
 };
 
 var obj = {
    cloze: []
 };
+var newCloze="";
 
-function makePartial(fullText, clozeDeleted){
-
-	var x = fullText.search(clozeDeleted);
-	// console.log(x);
-
-	if (x >= 0){
-		var partialText = fullText.replace(clozeDeleted, "...........");
-
-     	var newCloze = new clozeCard(fullText, clozeDeleted, partialText);
-
-		fs.readFile("clozeArray.json", 'utf8', function readFileCallback(err, data){
-	    	if (err){
-			        console.log(err);
-			    } else {
-
-			    obj = JSON.parse(data); //now it an object	
-			    console.log(obj);
-			    // obj.cloze.push(newCloze); //add some data
-			    // json = JSON.stringify(obj); //convert it back to json
-			    // fs.writeFile("clozeArray.json", json, 'utf8'); // write it back 
-			};
-		});
-
-
-		// console.log(partialText);
-		// console.log(fullText);
-		// console.log(clozeDeleted);
-	} else {
-	
-		console.log("The word/phrase you entered is not in the sentence you entered. Please check your spelling and capitalization.");
-		return false;
-	};
-
-};
 
 var makeCard = function(){
 
-inquirer.prompt([
+	inquirer.prompt([
 
 		{
+		type: 'input',
         name: "fullText",
         message: "Please enter the complete sentence. (example: Austin is the capital of Texas.)"
      	 },
       	{
+      	type: 'input',	
         name: "clozeDeleted",
         message: "Please enter the word or phrase that you wish to hide. (example: Austin)"
-      	},
-
+      	}
 
       ]).then(function(answers) {
 
       	var fullText = answers.fullText;
       	var clozeDeleted = answers.clozeDeleted;
 
-      	makePartial(fullText, clozeDeleted);
+      	newCloze = new clozeCard(fullText, clozeDeleted);
 
 
 
-});
+		fs.readFile("clozeArray.json", 'utf8', function readFileCallback(err, data){
+		    if (err){
+		        console.log(err);
+		    } else {
+		    	if (data) {
+					obj = JSON.parse(data); //now it an object
+			    		console.log(obj);
+			    } else {
+			    	obj = {
+							cloze: []
+						}; 
+ 					};
+ 				}; //end if err and obj set
 
-};
+ 			// obj = JSON.parse(data); //now it an object
+		    obj.cloze.push(newCloze); //add some data
+		    json = JSON.stringify(obj); //convert it back to json
+		    fs.writeFile("clozeArray.json", json, 'utf8'); // write it back 
+		// }});	
+ 				
+ 		});//end read file
+
+
+  			// console.log(newCloze);
+  		
+  			// console.log(obj);
+	
+	}); //end then/inquire
+}; //end makeCard
+
+
+
+
+
+
 
 
 module.exports = makeCard;

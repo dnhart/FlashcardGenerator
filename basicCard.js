@@ -11,17 +11,19 @@ var obj = {
    basic: []
 };
 
-
+var newBasic="";
 
 var makeCard = function(){
 
 inquirer.prompt([
 
 		{
+		type: 'input',
         name: "question",
         message: "Please enter the question."
      	 },
       	{
+      	type: 'input',
         name: "answer",
         message: "Please enter the answer."
       	}
@@ -33,19 +35,28 @@ inquirer.prompt([
       	var newBasic = new basicCard(question, answer);
 
 
+
 		fs.readFile("basicArray.json", 'utf8', function readFileCallback(err, data){
 		    if (err){
 		        console.log(err);
 		    } else {
-		    obj = JSON.parse(data); //now it an object
+		    	if (data) {
+					obj = JSON.parse(data); //now it an object
+			    		console.log(obj);
+			    } else {
+			    	obj = {
+							basic: []
+						}; 
+ 					};
+ 				}; //end if err and obj set
+
 		    obj.basic.push(newBasic); //add some data
 		    json = JSON.stringify(obj); //convert it back to json
 		    fs.writeFile("basicArray.json", json, 'utf8'); // write it back 
-		}});
 
-});
-
-};
-
+ 				
+ 		});//end read file	
+	}); //end then/inquire
+}; //end makeCard
 
 module.exports = makeCard;
