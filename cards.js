@@ -10,7 +10,7 @@ inquirer.prompt([
  		type: 'rawlist',
         name: "cardtype",
         message: "Would you like to create a question card or fill in the blank card?",
-        choices: ["Create a Question Card.", "Create a Fill in the Blank (Cloze) Card.", "Take the Question Card quiz.", "Take the Cloze Card quiz."],
+        choices: ["Create a Question Card.", "Create a Cloze (Fill-in-the-Blank) Card.", "Take the Question Card quiz.", "Take the Cloze Card quiz."],
 		
       },
 ]).then(function(answers) {
@@ -24,7 +24,7 @@ inquirer.prompt([
 		break;
 
 	//clozedeleted card
-		case "Create a Fill in the Blank (Cloze) Card.":
+		case "Create a Cloze (Fill-in-the-Blank) Card.":
 			clozeCard();
 
 
