@@ -3,9 +3,14 @@ var fs = require("fs");
 
 
 function basicCard (question, answer){
-	this.question = question;
-	this.answer = answer;
+	if(this instanceof basicCard) {
+		this.question = question;
+		this.answer = answer;
+	} else {
+    	return new basicCard (question, answer);
+  		};
 };
+
 
 var obj = {
    basic: []
@@ -32,7 +37,7 @@ inquirer.prompt([
       	var question=answers.question;
       	var answer=answers.answer;
 
-      	var newBasic = new basicCard(question, answer);
+      	var newBasic = basicCard(question, answer);
 
 
 

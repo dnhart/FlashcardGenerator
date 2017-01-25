@@ -3,9 +3,12 @@ var fs = require("fs");
 
 
 function clozeCard (fullText, clozeDeleted){
-	this.fullText = fullText;
-	this.clozeDeleted = clozeDeleted;
-	//this.makePartial = makePartial(this.fullText, this.clozeDeleted);
+	if(this instanceof clozeCard) {
+		this.fullText = fullText;
+		this.clozeDeleted = clozeDeleted;
+	} else {
+    	return new clozeCard (fullText, clozeDeleted);
+  	};
 };
 
 var obj = {
@@ -34,7 +37,7 @@ var makeCard = function(){
       	var fullText = answers.fullText;
       	var clozeDeleted = answers.clozeDeleted;
 
-      	newCloze = new clozeCard(fullText, clozeDeleted);
+      	var newCloze = clozeCard(fullText, clozeDeleted);
 
       	var clozeExists = fullText.search(clozeDeleted);
 
