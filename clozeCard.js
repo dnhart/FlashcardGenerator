@@ -36,7 +36,12 @@ var makeCard = function(){
 
       	newCloze = new clozeCard(fullText, clozeDeleted);
 
+      	var clozeExists = fullText.search(clozeDeleted);
 
+
+	if (clozeExists >= 0){
+
+		var newCloze = new clozeCard(fullText, clozeDeleted);
 
 		fs.readFile("clozeArray.json", 'utf8', function readFileCallback(err, data){
 		    if (err){
@@ -44,7 +49,7 @@ var makeCard = function(){
 		    } else {
 		    	if (data) {
 					obj = JSON.parse(data); //now it an object
-			    		console.log(obj);
+			    		
 			    } else {
 			    	obj = {
 							cloze: []
@@ -52,19 +57,18 @@ var makeCard = function(){
  					};
  				}; //end if err and obj set
 
- 			// obj = JSON.parse(data); //now it an object
 		    obj.cloze.push(newCloze); //add some data
 		    json = JSON.stringify(obj); //convert it back to json
 		    fs.writeFile("clozeArray.json", json, 'utf8'); // write it back 
-		// }});	
+		     console.log(json);
  				
- 		});//end read file
-
-
-  			// console.log(newCloze);
-  		
-  			// console.log(obj);
+ 		});//end read file	
+	} else {
 	
+		console.log("The word/phrase you entered is not in the sentence you entered. Please check your spelling and capitalization.");
+		return false;
+		};
+
 	}); //end then/inquire
 }; //end makeCard
 

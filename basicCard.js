@@ -42,7 +42,7 @@ inquirer.prompt([
 		    } else {
 		    	if (data) {
 					obj = JSON.parse(data); //now it an object
-			    		console.log(obj);
+			    		
 			    } else {
 			    	obj = {
 							basic: []
@@ -53,7 +53,7 @@ inquirer.prompt([
 		    obj.basic.push(newBasic); //add some data
 		    json = JSON.stringify(obj); //convert it back to json
 		    fs.writeFile("basicArray.json", json, 'utf8'); // write it back 
-
+		    console.log(json);
  				
  		});//end read file	
 	}); //end then/inquire
